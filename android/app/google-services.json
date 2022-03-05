@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "340707090696",
+    "project_id": "ownerbigmarket",
+    "storage_bucket": "ownerbigmarket.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340707090696:android:232f23bfe30fadd0a38cbd",
+        "android_client_info": {
+          "package_name": "com.owner.big.market"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340707090696-uhgaoe9p3ub4fg9pj5c5092c7g3l3irt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyOxSll0eAwvwVQF_8vuSX3SYy4A08R-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340707090696-uhgaoe9p3ub4fg9pj5c5092c7g3l3irt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "340707090696-6l0pvmnv3ugdj1s1das78fg17bk8rae2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.owner.big.market"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
