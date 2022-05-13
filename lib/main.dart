@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:owner_big_market/storage_service1.dart';
+import 'package:owner_big_market/uploaddata/database/storage_service1.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:owner_big_market/uploaddata/screen/add_product_category_screen.dart';
 import 'package:owner_big_market/uploaddata/screen/signin_screen.dart';

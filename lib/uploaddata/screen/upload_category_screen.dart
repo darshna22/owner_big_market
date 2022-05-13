@@ -9,7 +9,7 @@ import 'package:owner_big_market/uploaddata/model/product_data.dart';
 import 'package:owner_big_market/uploaddata/reusable_widget/reusable_widget.dart';
 import 'package:owner_big_market/uploaddata/screen/image_from_gallery.dart';
 import 'dart:io';
-import 'package:owner_big_market/storage_service1.dart';
+import 'package:owner_big_market/uploaddata/database/storage_service1.dart';
 import 'package:owner_big_market/uploaddata/utility/color_utils.dart';
 import 'package:owner_big_market/uploaddata/utility/custom_loader.dart';
 import 'package:owner_big_market/uploaddata/utility/my_utility.dart';

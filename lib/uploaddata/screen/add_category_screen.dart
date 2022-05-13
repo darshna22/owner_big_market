@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:owner_big_market/storage_service1.dart';
+import 'package:owner_big_market/uploaddata/database/storage_service1.dart';
 import 'package:owner_big_market/uploaddata/database/my_database.dart';
 import 'package:owner_big_market/uploaddata/firebaseauth/auth_result_status.dart';
 import 'package:owner_big_market/uploaddata/firebaseauth/my_auth_exception_handling.dart';
