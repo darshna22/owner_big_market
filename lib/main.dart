@@ -1,15 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:owner_big_market/storage_service1.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:owner_big_market/uploaddata/screen/add_product_category_screen.dart';
+import 'package:owner_big_market/uploaddata/screen/signin_screen.dart';
+import 'package:owner_big_market/uploaddata/screen/splace_screen.dart';
+import 'package:owner_big_market/uploaddata/screen/upload_category_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -31,7 +35,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashScreen(),
     );
   }
 }
@@ -45,7 +49,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     Storage storage = Storage();
@@ -56,30 +59,81 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Column(
-          children: [
-            ElevatedButton(
-                onPressed: () async {
-                  FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(
-                    allowMultiple: false,
-                    type: FileType.custom,
-                    allowedExtensions: ['jpg', 'pdf', 'doc'],
-                  );
-                  if (result == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('No file selected')));
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              ElevatedButton(
+                  onPressed: () async {
+                    FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
+                      allowMultiple: false,
+                      type: FileType.custom,
+                      allowedExtensions: ['jpg', 'pdf', 'doc', 'jpeg'],
+                    );
+                    if (result == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('No file selected')));
+                    }
+
+                    final path = result?.files.single.path;
+                    final fileName = result?.files.single.name;
+
+                    print(path);
+                    print(fileName);
+                    storage
+                        .uploadFiles(path!, fileName!)
+                        .then((value) => SnackBar(content: Text('Done')));
+                  },
+                  child: const Text('file uploaded')),
+              FutureBuilder(
+                future: storage.getListFiles(), // async work
+                builder: (BuildContext context,
+                    AsyncSnapshot<firebase_storage.ListResult> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
+                    return Container(
+                      child: Column(
+                        children: [
+                          Text('list size ${snapshot.data?.items.length}'),
+                        ],
+                      ),
+                    );
                   }
-
-                  final path = result?.files.single.path;
-                  final fileName = result?.files.single.name;
-
-                  print(path);
-                  print(fileName);
-               //   storage.uploadFiles(path!, fileName!).then((value) => print('done uploading'));
+                  if (snapshot.connectionState == ConnectionState.waiting &&
+                      !snapshot.hasData) {
+                    return CircularProgressIndicator();
+                  }
+                  return Container(
+                    child: Text('ll'),
+                  );
                 },
-                child: const Text('file uploaded'))
-          ],
+              ),
+              FutureBuilder(
+                future: storage.downloadUrl("images.jpeg"), // async work
+                builder: (BuildContext context,
+                    AsyncSnapshot<String> snap) {
+                  if (snap.connectionState == ConnectionState.done &&
+                      snap.hasData) {
+                    return Container(
+                      child: Column(
+                        children: [
+                          Text('list size ${snap.data}'),
+                          Image.network(snap.data!,fit: BoxFit.fill,width: 100,height: 100,)
+                        ],
+                      ),
+                    );
+                  }
+                  if (snap.connectionState == ConnectionState.waiting &&
+                      !snap.hasData) {
+                    return CircularProgressIndicator();
+                  }
+                  return Container(
+                    child: Text('ll'),
+                  );
+                },
+              ),
+            ],
+          ),
         ));
   }
 }
